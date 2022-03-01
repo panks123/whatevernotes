@@ -1,13 +1,16 @@
-// console.log('Hello!!!!!');
+// Whwenever the page loads we have to display the notes available in localStorage
 showNotes();
+
 let addBtn = document.getElementById('addBtn');
-// console.log(addBtn)
+
+// Adding eventListner for 'Add note' button 
 addBtn.addEventListener('click', function () {
+    let inputTitle = document.getElementById('title');
+    let noteTitles = localStorage.getItem('noteTitles');
+
     let addTxt = document.getElementById('addTxt');
     let notes = localStorage.getItem('notes');
-    let inputTitle = document.getElementById('title');
-    // console.log(title.value);//*
-    let noteTitles = localStorage.getItem('noteTitles');
+    
     if (addTxt.value == "" || inputTitle.value == "") {
         window.alert("Make sure to enter both title and note");
     }
@@ -32,7 +35,6 @@ addBtn.addEventListener('click', function () {
         notesObj.push(addTxt.value);
         localStorage.setItem("notes", JSON.stringify(notesObj));
         addTxt.value = '';
-        // console.log(notesObj);
         showNotes();
     }
 })
@@ -46,7 +48,6 @@ function showNotes() {
     else {
         titlesObj = JSON.parse(titles);
     }
-    // console.log("xxx "+titlesObj[0])
     if (notes == null) {
         notesObj = [];
     }
@@ -73,7 +74,6 @@ function showNotes() {
 }
 
 function deleteNode(index) {
-    // console.log(index+"  being deleted");
     let notes = localStorage.getItem('notes');
     let titles= localStorage.getItem('noteTitles')
     if (notes == null) {
@@ -87,20 +87,20 @@ function deleteNode(index) {
         notesObj = JSON.parse(notes);
         titlesObj = JSON.parse(titles);
     }
-    notesObj.splice(index, 1);
-    titlesObj.splice(index,1);
+    notesObj.splice(index, 1); // delete one item from notesObj at given index
+    titlesObj.splice(index,1); // delete one item from notesObj at given index
     localStorage.setItem('notes', JSON.stringify(notesObj))
     localStorage.setItem('noteTitles', JSON.stringify(titlesObj))
-    // console.log(notesObj);
-    
+
+    // After deleting, display all the available notes
     showNotes();
 }
 
 let searchNote = document.getElementById('search');
-// console.log(searchNote);
+
+// Adding eventListner for 'Search' box 
 searchNote.addEventListener('input', function () {
     let inputVal = search.value;
-    // console.log('input event fired',inputVal)
     let noteCards = document.getElementsByClassName('noteCard');
     Array.from(noteCards).forEach(function (element) {
         let cardTexts = element.getElementsByTagName('p')[0].innerText;
@@ -111,36 +111,17 @@ searchNote.addEventListener('input', function () {
         inputVal=inputVal.toLowerCase()
         
         if (cardTexts.includes(inputVal) || titleTexts.includes(inputVal)) {
+            // show those notes which contains the substring
             element.style.display = "block"
             
         }
         else {
+            // hide those notes which contains the substring
             element.style.display = 'none'
 
         }
     })
 })
-
-// searchNote.addEventListener('input', function () {
-//     let inputVal = search.value;
-//     // console.log('input event fired',inputVal)
-//     let noteCards = document.getElementsByClassName('noteCard');
-//     Array.from(noteCards).forEach(function (element) {
-//         let cardTexts = element.getElementsByTagName('p')[0].innerText;
-//         let titleTexts = element.getElementsByTagName('h5')[0].innerText
-//         // console.log(titleTexts);
-
-//         // TODO- change the code for case insensitive search
-//         if (cardTexts.includes(inputVal) || titleTexts.includes(inputVal)) {
-//             element.style.display = "block"
-            
-//         }
-//         else {
-//             element.style.display = 'none'
-
-//         }
-//     })
-// })
 
 // Updating current year as copyright year
 let ti=new Date()

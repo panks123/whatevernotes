@@ -1,12 +1,12 @@
-// console.log('Hello!!!!!');
+
 showNotes();
 let addBtn = document.getElementById('addBtn');
-// console.log(addBtn)
+
 addBtn.addEventListener('click', function () {
     let addTxt = document.getElementById('addTxt');
     let notes = localStorage.getItem('notes');
     let inputTitle = document.getElementById('title');
-    // console.log(title.value);//*
+ 
     let noteTitles = localStorage.getItem('noteTitles');
     if (addTxt.value == "" || inputTitle.value == "") {
         window.alert("Make sure to enter both title and note");
@@ -32,7 +32,7 @@ addBtn.addEventListener('click', function () {
         notesObj.push(addTxt.value);
         localStorage.setItem("notes", JSON.stringify(notesObj));
         addTxt.value = '';
-        // console.log(notesObj);
+
         showNotes();
     }
 })
@@ -46,7 +46,7 @@ function showNotes() {
     else {
         titlesObj = JSON.parse(titles);
     }
-    // console.log("xxx "+titlesObj[0])
+
     if (notes == null) {
         notesObj = [];
     }
@@ -73,7 +73,7 @@ function showNotes() {
 }
 
 function deleteNode(index) {
-    // console.log(index+"  being deleted");
+
     let notes = localStorage.getItem('notes');
     let titles= localStorage.getItem('noteTitles')
     if (notes == null) {
@@ -91,21 +91,21 @@ function deleteNode(index) {
     titlesObj.splice(index,1);
     localStorage.setItem('notes', JSON.stringify(notesObj))
     localStorage.setItem('noteTitles', JSON.stringify(titlesObj))
-    // console.log(notesObj);
+
     
     showNotes();
 }
 
 let searchNote = document.getElementById('search');
-// console.log(searchNote);
+
 searchNote.addEventListener('input', function () {
     let inputVal = search.value;
-    // console.log('input event fired',inputVal)
+ 
     let noteCards = document.getElementsByClassName('noteCard');
     Array.from(noteCards).forEach(function (element) {
         let cardTexts = element.getElementsByTagName('p')[0].innerText;
         let titleTexts = element.getElementsByTagName('h5')[0].innerText
-        // console.log(titleTexts);
+
         if (cardTexts.includes(inputVal) || titleTexts.includes(inputVal)) {
             element.style.display = "block"
             
